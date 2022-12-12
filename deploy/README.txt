@@ -1,0 +1,1 @@
+Ce répertoire sert à déposer les produits utiles à VIVO-STUDIO

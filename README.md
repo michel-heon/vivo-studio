@@ -1,2 +1,3 @@
-# vivo-studio
-Custom development environment for VIVO programming
+# VIVO-STUDIO
+VIVO-STUDIO est utile au développeur pour développer VIVO. 
+
