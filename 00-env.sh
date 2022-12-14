@@ -18,12 +18,14 @@ export RESOURCES=$ENV_SCRIPT_DIR/resources
 export DEPLOY=$ENV_SCRIPT_DIR/deploy
 export SCRIPT=$ENV_SCRIPT_DIR/script
 export VIVO_REPO=$GIT/VIVO
+export VIVO_UQAM_INSTALL=$GIT/vivo-uqam-installer
+export VIVO_DIST_RELEASE=1.13.1-SNAPSHOT
 ###################################################################
 # VIVO settings
 export APP_NAME=vivo
 export TOMCAT_HOME=$DEPLOY/tomcat
 export VIVO_HOME=$DEPLOY/vivo
-export VIVO_THEME=wilma
+export VIVO_THEME=uqam
 
 ###################################################################
 # Semantic Web Services settings

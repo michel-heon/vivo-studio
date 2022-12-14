@@ -10,6 +10,8 @@
                 <vivo-dir>${env.VIVO_HOME}/home</vivo-dir>
                 <tomcat-dir>${env.TOMCAT_HOME}</tomcat-dir>
                 <default-theme>${env.VIVO_THEME}</default-theme>
+                <vivo-version>${env.VIVO_DIST_RELEASE}</vivo-version>
+                <vitro-version>${env.VIVO_DIST_RELEASE}</vitro-version>
             </properties>
         </profile>
     </profiles>
