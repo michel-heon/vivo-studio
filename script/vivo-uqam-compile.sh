@@ -14,4 +14,4 @@ source $SCRIPT_DIR/../conf/root-conf.sh
 [ ! -d $VIVO_HOME/home/rdf ] && mkdir -p $VIVO_HOME/home/rdf
 cp $RESOURCES/vivo-conf/runtime.properties $RESOURCES/vivo-conf/applicationSetup.n3 $VIVO_REPO/home/src/main/resources/config
 cd $VIVO_UQAM_INSTALL
-mvn -T2C clean install -DskipTest=true -s $RESOURCES/vivo-conf/settings.xml
+mvn -T2C clean install -DskipTests=true -s $RESOURCES/vivo-conf/settings.xml
