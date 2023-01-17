@@ -17,6 +17,7 @@ export GIT="$(cd $ENV_SCRIPT_DIR/../ && pwd -P)"
 export RESOURCES=$ENV_SCRIPT_DIR/resources
 export DEPLOY=$ENV_SCRIPT_DIR/deploy
 export SCRIPT=$ENV_SCRIPT_DIR/script
+export BASH_LIB=$ENV_SCRIPT_DIR/lib
 export VIVO_REPO=$GIT/VIVO
 export VIVO_UQAM_INSTALL=$GIT/vivo-uqam-installer
 export VIVO_DIST_RELEASE=1.13.1-SNAPSHOT
@@ -40,8 +41,15 @@ export JAVA_HOME=$DEPLOY/JDK
 
 ###################################################################
 # Variables concernant NEPTUNE
-export NEPTUNE_SPARQL_RW_HOST="vivo-reader-cfdev-dev-neptune-cluster.cluster-c2o1sdzzfasi.ca-central-1.neptune.amazonaws.com"
-export NEPTUNE_SPARQL_RW_URL="https://$NEPTUNE_SPARQL_RW_HOST:8182/sparql"
+export NEPTUNE_INSTANCE_ADDRESS=$(aws neptune describe-db-instances --query 'DBInstances[].Endpoint.Address' --output=text)
+export NEPTUNE_CLUSTER_RO_ADDRESS=$(aws neptune describe-db-clusters --query 'DBClusters[].ReaderEndpoint' --output=text)
+export NEPTUNE_CLUSTER_RW_ADDRESS=$(aws neptune describe-db-clusters --query 'DBClusters[].Endpoint' --output=text)
+export NEPTUNE_INSTANCE_ID=$(aws neptune describe-db-instances --query 'DBInstances[].DBInstanceIdentifier' --output=text)
+export NEPTUNE_CLUSTER_ID=$(aws neptune describe-db-clusters --query 'DBClusters[].DBClusterIdentifier' --output=text)
+export NEPTUNE_INSTANCE_URL="https://$NEPTUNE_INSTANCE_ADDRESS:8182"
+export NEPTUNE_CLUSTER_RW_URL="https://$NEPTUNE_CLUSTER_RW_ADDRESS:8182"
+export NEPTUNE_CLUSTER_RO_URL="https://$NEPTUNE_CLUSTER_RW_ADDRESS:8182"
+export NEPTUNE_SPARQL_RW_URL="$NEPTUNE_CLUSTER_RW_ADDRESS:8182/sparql"
 
 ###################################################################
 # Tomcat/Solr Services settings
