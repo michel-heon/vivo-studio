@@ -10,7 +10,7 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $SCRIPT_DIR/00-env-ETL.sh
+source $LOG_SCRIPT_DIR/../conf/root-conf.sh
 source $FUNC_LIB/cleanup.sh
 
 
