@@ -24,7 +24,7 @@ version="1.0">
 <user username="admin" password="admin" roles="manager-gui"/>
 <user username="robot" password="admin" roles="manager-script"/>
 <role rolename="tomcat"/>
-<user username="tomcat" password="cmln1234." roles="tomcat"/>
+<user username="tomcat" password="admin1234." roles="tomcat"/>
 </tomcat-users>
 EOF
 cd $DEPLOY/tomcat/

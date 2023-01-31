@@ -35,7 +35,7 @@ export TRANSLATOR_HOME=$DEPLOY/translator
 export JENA_HOME=$TRANSLATOR_HOME
 export FUSEKI_HOME=$DEPLOY/fuseki
 export FUSEKI_BASE=$FUSEKI_HOME/base
-export JAVA_HOME=$DEPLOY/JDK
+export JAVA_HOME=$DEPLOY/amazon-corretto-11.0.18.10.1-linux-x64
 
 #export JRE_HOME=$JAVA_HOME/jre
 
@@ -54,7 +54,7 @@ export NEPTUNE_SPARQL_RW_URL="$NEPTUNE_CLUSTER_RW_ADDRESS:8182/sparql"
 ###################################################################
 # Tomcat/Solr Services settings
 export SOLR=$DEPLOY/solr/
-export TOMCAT_VERSION="8.5.84"
+export TOMCAT_VERSION="8.5.85"
 export TOOLS_DIR=$TRANSLATOR_HOME/ldap-tools/tools
 
 export PATH=$SCRIPT:$JAVA_HOME/bin:$SOLR/bin:$TOMCAT_HOME/bin:$JENA_HOME:$JENA_HOME/bin:$TOOLS_DIR:$FUSEKI_HOME:$FUSEKI_HOME/bin:$PATH
