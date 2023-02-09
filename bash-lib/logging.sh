@@ -1,5 +1,4 @@
-#!/bin/bash
-set +u
+#!/bin/bash 
 
 ##
 ## Simple logging mechanism for Bash
@@ -15,21 +14,21 @@ set +u
 
 exec 3>&2 # logging stream (file descriptor 3) defaults to STDERR
 verbosity=3 # default to show warnings
-defaultlw=133
-logwitdh=133
+defaultlw=999
+logwitdh=999
 silent_lvl=0
 crt_lvl=1
 err_lvl=2
 wrn_lvl=3
 inf_lvl=4
 dbg_lvl=5
-notify() { [ -z "$2" ] || logwitdh=$2 ; log $silent_lvl "NOTE: $1"; } # Always prints
-critical() { [ -z "$2" ] || logwitdh=$2 ; log $crt_lvl "CRITICAL: $1"; }
-error() { [ -z "$2" ] || logwitdh=$2 ; log $err_lvl "ERROR: $1"; }
-warn() { [ -z "$2" ] || logwitdh=$2 ; log $wrn_lvl "WARNING: $1"; }
-inf() { [ -z "$2" ] || logwitdh=$2 ;  log $inf_lvl "INFO: $1";  } # "info" is already a command
-info() { [ -z "$2" ] || logwitdh=$2 ;  log $inf_lvl "INFO: $1";  } # "info" is already a command
-debug() { [ -z "$2" ] || logwitdh=$2 ; log $dbg_lvl "DEBUG: $1"; }
+notify() { [[ $# -lt 2 ]]|| logwitdh=$2 ; log $silent_lvl "NOTE: $1"; } # Always prints
+critical() { [[ $# -lt 2 ]] || logwitdh=$2 ; log $crt_lvl "CRITICAL: $1"; }
+error() { [[ $# -lt 2 ]]|| logwitdh=$2 ; log $err_lvl "ERROR: $1"; }
+warn() { [[ $# -lt 2 ]] || logwitdh=$2 ; log $wrn_lvl "WARNING: $1"; }
+inf() { [[ $# -lt 2 ]] || logwitdh=$2 ;  log $inf_lvl "INFO: $1";  } # "info" is already a command
+info() { [[ $# -lt 2 ]] || logwitdh=$2 ;  log $inf_lvl "INFO: $1";  } # "info" is already a command
+debug() { [[ $# -lt 2 ]] || logwitdh=$2 ; log $dbg_lvl "DEBUG: $1"; }
 log() {
     if [ $verbosity -ge $1 ]; then
         datestring=`date +'%Y-%m-%d %H:%M:%S'`
@@ -39,4 +38,3 @@ log() {
         logwitdh=$defaultlw
     fi
 }
-

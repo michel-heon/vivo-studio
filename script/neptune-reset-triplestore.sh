@@ -10,7 +10,7 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export NEP_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $NEP_SCRIPT_DIR/../conf/root-conf.sh
+source $NEP_SCRIPT_DIR/../conf/vs-conf.sh
 [ -z "$VIVO_CNAME" ] && export VIVO_CNAME=vivo-demo
 [ -z "$VIVO_UQAM_RELEASE" ] && export VIVO_UQAM_RELEASE=sprint-demo
 

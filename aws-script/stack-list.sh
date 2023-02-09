@@ -1,17 +1,14 @@
-#!/bin/bash
+#!/bin/bash 
 
 ###################################################################
 # Script Name   :
 # Description   :
-# Args          :
+# Args          : 
 # Author        : Michel Héon PhD
 # Institution   : Université du Québec à Montréal
 # Copyright     : Université du Québec à Montréal (c) 2022
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $SCRIPT_DIR/../conf/vs-conf.sh
-cd $VIVO_REPO
-[ ! -d $VIVO_HOME/home/rdf ] && mkdir -p $VIVO_HOME/home/rdf
-cp $RESOURCES/vivo-conf/runtime.properties $RESOURCES/vivo-conf/applicationSetup.n3 $VIVO_REPO/home/src/main/resources/config
-mvn -T2C clean install -DskipTests=true -s $RESOURCES/vivo-conf/settings.xml
+aws cloudformation list-stacks --query 'StackSummaries[*].[StackName,StackStatus]' --output=table | grep -v 'DELETE_COMPLETE'
+

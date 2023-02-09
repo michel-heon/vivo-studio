@@ -10,7 +10,7 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export TR_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $TR_SCRIPT_DIR/../conf/root-conf.sh
+source $TR_SCRIPT_DIR/../conf/vs-conf.sh
 export TRANSLATOR_HOME=$DEPLOY/translator
 cd $TRANSLATOR_REPO
 ./install-translator.sh

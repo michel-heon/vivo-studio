@@ -10,5 +10,5 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-source $SCRIPT_DIR/../conf/root-conf.sh
+source $SCRIPT_DIR/../conf/vs-conf.sh
 aws rds describe-orderable-db-instance-options --engine neptune --query 'OrderableDBInstanceOptions[].DBInstanceClass' --output=text | tr -s '\t' '\n' | sort -u

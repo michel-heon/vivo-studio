@@ -10,7 +10,7 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export LOG_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $LOG_SCRIPT_DIR/../conf/root-conf.sh
+source $LOG_SCRIPT_DIR/../conf/vs-conf.sh
 source $BASH_LIB/logging.sh
 inf "STATUS=$(aws neptune describe-db-instances --db-instance-identifier $NEPTUNE_INSTANCE_ID --query 'DBInstances[].DBInstanceStatus' --output=text)" 9999
 curl -s -G "$NEPTUNE_INSTANCE_URL/status" | jq .
