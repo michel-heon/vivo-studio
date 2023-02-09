@@ -9,12 +9,12 @@
 # Copyright     : Université du Québec à Montréal (c) 2022
 # Email         : heon.michel@uqam.ca
 ###################################################################
-export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
-source $SCRIPT_DIR/../conf/vs-conf.sh
-cd $DEPLOY
-FUSEKI=apache-jena-fuseki-3.17.0
-[ ! -f $FUSEKI.tar.gz ] && wget https://archive.apache.org/dist/jena/binaries/$FUSEKI.tar.gz
-[ ! -d fuseki ] && mkdir fuseki
-tar xzvf $FUSEKI.tar.gz --directory ./fuseki --strip-components=1
-
+export CF_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
+BS=$(basename $1 .json)
+STACK_NAME=$(basename $BS .yaml)
+STACK_NAME_ID="$STACK_NAME-$aws_account_id"
+echo Wait delete
+$CF_SCRIPT_DIR/stack-delete.sh $1
+echo Create Stack
+$CF_SCRIPT_DIR/stack-create.sh $1
 

@@ -10,7 +10,7 @@
 # Email         : heon.michel@uqam.ca
 ###################################################################
 export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-source $SCRIPT_DIR/../conf/root-conf.sh
+source $SCRIPT_DIR/../conf/vs-conf.sh
 aws neptune describe-db-instances --db-instance-identifier $NEPTUNE_INSTANCE_ID --output=table
 
 
