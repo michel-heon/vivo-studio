@@ -9,7 +9,7 @@
 # Copyright     : Université du Québec à Montréal (c) 2022
 # Email         : heon.michel@uqam.ca
 ###################################################################
-export SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
+export LOC_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
 export DC_VPC_ID=$(aws ssm get-parameter --name DC_VPC_ID --query 'Parameter.Value' --output=text)
 export DC_SUBNET_PUBLIC_ID_1=$(aws ssm get-parameter --name DC_SUBNET_PUBLIC_ID_1 --query 'Parameter.Value' --output=text)
 export DC_SUBNET_PUBLIC_ID_2=$(aws ssm get-parameter --name DC_SUBNET_PUBLIC_ID_2 --query 'Parameter.Value' --output=text)

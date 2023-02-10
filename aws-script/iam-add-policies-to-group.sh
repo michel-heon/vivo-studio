@@ -1,22 +1,24 @@
-#!/bin/bash
+#!/bin/bash -u
+
 ###################################################################
 # Script Name   :
 # Description   :
 # Args          : 
-# Author       	: Michel Héon PhD
+# Author        : Michel Héon PhD
 # Institution   : Université du Québec à Montréal
-# Copyright     : Université du Québec à Montréal (c) 2021
+# Copyright     : Université du Québec à Montréal (c) 2023
 # Email         : heon.michel@uqam.ca
 ###################################################################
-export LOC_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+export LOC_SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd -P)"
 source $LOC_SCRIPT_DIR/../conf/vs-conf.sh
 
 ###################################################################
 # Spécification de l'usage
-usage() { echo "Usage: $0 <nom-de-l_instance> " 1>&2; exit 1; }
+usage() { echo "Usage: $0 <policy-arn> " 1>&2; exit 1; }
 [ -z "$1" ] && usage 
-export INSTANCE_NAME=$1
+
 
 ###################################################################
 # Coeur de la commande
-aws ec2 describe-instances --filters  "Name=tag:Name,Values=$INSTANCE_NAME" "Name=instance-state-name,Values=running" --query "Reservations[].Instances[].InstanceId" --output=text
+
+aws iam attach-group-policy --group-name $AWS_GROUP --policy-arn $1
