@@ -18,15 +18,34 @@ export DEPLOY=$VS_SCRIPT_DIR/deploy
 export SCRIPT=$VS_SCRIPT_DIR/script
 export SCRIPT_AWS=$VS_SCRIPT_DIR/aws-script
 export BASH_LIB=$VS_SCRIPT_DIR/bash-lib
-export VIVO_REPO=$GIT/VIVO
-export VIVO_UQAM_INSTALL=$GIT/vivo-uqam-installer
-export VIVO_DIST_RELEASE=1.13.1-SNAPSHOT
+[ -z "$VIVO_REPO" ]           && export VIVO_REPO=$GIT/VIVO
+[ -z "$VIVO_INSTALLER_HOME" ] && export VIVO_INSTALLER_HOME=$GIT/vivo-uqam-installer
+[ -z "$VIVO_DIST_RELEASE" ]   && export VIVO_DIST_RELEASE=1.13.1-SNAPSHOT
 ###################################################################
 # VIVO settings
-export APP_NAME=vivo
-export TOMCAT_HOME=$DEPLOY/tomcat
-export VIVO_HOME=$DEPLOY/vivo
-export VIVO_THEME=uqam
+[ -z "$APP_NAME" ]            && export APP_NAME=vivo
+[ -z "$TOMCAT_HOME" ]         && export TOMCAT_HOME=$DEPLOY/tomcat
+[ -z "$EBS_HOME" ]            && export EBS_HOME=$DEPLOY/ebs
+[ -z "$VIVO_HOME" ]           && export VIVO_HOME=$DEPLOY/vivo
+[ -z "$VIVO_THEME" ]          && export VIVO_THEME=uqam
+[ -z "$VIVO_PKG" ]            && export VIVO_PKG=${GIT}/VIVO
+[ -z "$VITRO_PKG" ]           && export VITRO_PKG=${GIT}/Vitro
+[ -z "$SAMPLE_PKG" ]          && export SAMPLE_PKG=${GIT}/sample-data
+[ -z "$VIVO_CNAME_EBS_ENV" ]  && export VIVO_CNAME_EBS_ENV=${VIVO_CNAME}-env  # Nom de l’environnement de déploiement
+
+
+###################################################################
+# Configuration de VIVO runtime.properties
+#
+# EXEMPLE de configuration du fichier vivo-uqam-passwd.properties
+# cat ~/.aws/vivo-uqam-passwd.properties
+# vivo.user=VOTRE-COMPTE-UTILSATEUR
+# vivo.password=VOTRE-MOT-DE-PASSE
+[ -z "$USER_PROPERTIES" ] && export USER_PROPERTIES=~/.aws/vivo-uqam-passwd.properties
+[ -f "$USER_PROPERTIES" ] && export ROOT_USER_EMAIL=$(grep vivo.user $USER_PROPERTIES | cut -d'=' -f2 )   # Compte administrateur déployé sur l'instance VIVO
+[ -f "$USER_PROPERTIES" ] && export ROOT_USER_PASSWD=$(grep vivo.password $USER_PROPERTIES | cut -d'=' -f2 )  # Mot de passe de l'administrateur
+
+
 
 ###################################################################
 # Semantic Web Services settings
@@ -37,6 +56,9 @@ export FUSEKI_HOME=$DEPLOY/fuseki
 export FUSEKI_BASE=$FUSEKI_HOME/base
 export JAVA_HOME=$DEPLOY/amazon-corretto-11.0.18.10.1-linux-x64
 
+
+[ -z "$INSTALL_SOLR_EBS" ] && export INSTALL_SOLR_EBS=false;
+[ -z "$INSTALL_FUSEKI" ]   && export INSTALL_FUSEKI=false;
 
 ###################################################################
 # Variables concernant NEPTUNE
@@ -81,8 +103,8 @@ export aws_account_id=$(aws iam get-user --user-name $AWS_USERNAME  --query 'Use
 
 ###################################################################
 # Tomcat/Solr Services settings
-export SOLR=$DEPLOY/solr/
-export TOMCAT_VERSION="8.5.85"
+export SOLR=$DEPLOY/solr
+export TOMCAT_VERSION=\""8.5.85"\"
 export TOOLS_DIR=$TRANSLATOR_HOME/ldap-tools/tools
 
 export PATH=$JAVA_HOME/bin\
@@ -96,6 +118,7 @@ export PATH=$JAVA_HOME/bin\
 :$TOOLS_DIR\
 :$FUSEKI_HOME\
 :$FUSEKI_HOME/bin\
+:$TRANSLATOR_HOME/bin\
 :$PATH
 alias log="tail -f $TOMCAT_HOME/logs/*"
 alias cdgit="cd $GIT"
