@@ -43,6 +43,8 @@ export BASH_LIB=$VS_SCRIPT_DIR/bash-lib
 [ -z "$USER_PROPERTIES" ] && export USER_PROPERTIES=~/.aws/vivo-uqam-passwd.properties
 [ -f "$USER_PROPERTIES" ] && export ROOT_USER_EMAIL=$(grep vivo.user $USER_PROPERTIES | cut -d'=' -f2 )   # Compte administrateur déployé sur l'instance VIVO
 [ -f "$USER_PROPERTIES" ] && export ROOT_USER_PASSWD=$(grep vivo.password $USER_PROPERTIES | cut -d'=' -f2 )  # Mot de passe de l'administrateur
+[ -z "$VIVO_DEFAULT_NS" ]  && export VIVO_DEFAULT_NS=http://vivo.uqam.ca/individual/
+[ -z "$SOLR_URL" ]  && export SOLR_URL=http://localhost:8983/solr/vivocore
 
 ###################################################################
 # Semantic Web Services settings
@@ -53,15 +55,11 @@ export FUSEKI_HOME=$DEPLOY/fuseki
 export FUSEKI_BASE=$FUSEKI_HOME/base
 export JAVA_HOME=$DEPLOY/amazon-corretto-11.0.18.10.1-linux-x64
 
-
 [ -z "$INSTALL_SOLR_EBS" ] && export INSTALL_SOLR_EBS=false;
 [ -z "$INSTALL_FUSEKI" ]   && export INSTALL_FUSEKI=false;
 
-
-
 ###################################################################
 # Configurations associées à AWS
-
 [ -z "$CF_TEMPLATE" ] && export CF_TEMPLATE=$(realpath $VS_SCRIPT_DIR/templates)
 
 ###################################################################
