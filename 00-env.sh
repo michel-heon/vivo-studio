@@ -16,7 +16,7 @@ export GIT="$(cd $VS_SCRIPT_DIR/../ && pwd -P)"
 export RESOURCES=$VS_SCRIPT_DIR/resources
 export DEPLOY=$VS_SCRIPT_DIR/deploy
 export SCRIPT=$VS_SCRIPT_DIR/script
-export SCRIPT_AWS=$VS_SCRIPT_DIR/aws-script
+export SCRIPT_AWS=$VS_SCRIPT_DIR/script-aws
 export BASH_LIB=$VS_SCRIPT_DIR/bash-lib
 [ -z "$VIVO_REPO" ]           && export VIVO_REPO=$GIT/VIVO
 [ -z "$VIVO_INSTALLER_HOME" ] && export VIVO_INSTALLER_HOME=$GIT/vivo-uqam-installer
@@ -33,7 +33,6 @@ export BASH_LIB=$VS_SCRIPT_DIR/bash-lib
 [ -z "$SAMPLE_PKG" ]          && export SAMPLE_PKG=${GIT}/sample-data
 [ -z "$VIVO_CNAME_EBS_ENV" ]  && export VIVO_CNAME_EBS_ENV=${VIVO_CNAME}-env  # Nom de l’environnement de déploiement
 
-
 ###################################################################
 # Configuration de VIVO runtime.properties
 #
@@ -44,8 +43,6 @@ export BASH_LIB=$VS_SCRIPT_DIR/bash-lib
 [ -z "$USER_PROPERTIES" ] && export USER_PROPERTIES=~/.aws/vivo-uqam-passwd.properties
 [ -f "$USER_PROPERTIES" ] && export ROOT_USER_EMAIL=$(grep vivo.user $USER_PROPERTIES | cut -d'=' -f2 )   # Compte administrateur déployé sur l'instance VIVO
 [ -f "$USER_PROPERTIES" ] && export ROOT_USER_PASSWD=$(grep vivo.password $USER_PROPERTIES | cut -d'=' -f2 )  # Mot de passe de l'administrateur
-
-
 
 ###################################################################
 # Semantic Web Services settings
@@ -59,6 +56,13 @@ export JAVA_HOME=$DEPLOY/amazon-corretto-11.0.18.10.1-linux-x64
 
 [ -z "$INSTALL_SOLR_EBS" ] && export INSTALL_SOLR_EBS=false;
 [ -z "$INSTALL_FUSEKI" ]   && export INSTALL_FUSEKI=false;
+
+
+
+###################################################################
+# Configurations associées à AWS
+
+[ -z "$CF_TEMPLATE" ] && export CF_TEMPLATE=$(realpath $VS_SCRIPT_DIR/templates)
 
 ###################################################################
 # Variables concernant NEPTUNE
@@ -87,11 +91,12 @@ fi
 [ -z "$AWS_USERNAME" ]        && export AWS_USERNAME=vivo-app 
 [ -z "$AWS_DEFAULT_PROFILE" ] && export AWS_DEFAULT_PROFILE=vivo-demo
 [ -z "$AWS_GROUP" ]           && export AWS_GROUP=vivo-grp
-[ "$AWS_DEFAULT_PROFILE" == "expertises-app" ] && export CLE_SSH="vivo-uqam-aws-prod" 
-[ "$AWS_DEFAULT_PROFILE" == "vivo-test" ]      && export CLE_SSH="Cle-VIVO-Demo"
-[ "$AWS_DEFAULT_PROFILE" == "vivo-dev" ]       && export CLE_SSH="Cle-VIVO-Demo"
-[ "$AWS_DEFAULT_PROFILE" == "vivo-demo" ]      && export CLE_SSH="vivo-uqam-aws-demo" 
-[ "$AWS_DEFAULT_PROFILE" == "vivo-prod" ]      && export CLE_SSH="vivo-uqam-aws-demo" 
+[ "$AWS_DEFAULT_PROFILE" == "expertises-app" ] && [ -z "$CLE_SSH" ] && export CLE_SSH="vivo-uqam-aws-prod" 
+[ "$AWS_DEFAULT_PROFILE" == "vivo-test" ]      && [ -z "$CLE_SSH" ] && export CLE_SSH="Cle-VIVO-Demo"
+[ "$AWS_DEFAULT_PROFILE" == "vivo-dev" ]       && [ -z "$CLE_SSH" ] && export CLE_SSH="Cle-VIVO-Demo"
+[ "$AWS_DEFAULT_PROFILE" == "vivo-demo" ]      && [ -z "$CLE_SSH" ] && export CLE_SSH="vivo-uqam-aws-demo" 
+[ "$AWS_DEFAULT_PROFILE" == "vivo-prod" ]      && [ -z "$CLE_SSH" ] && export CLE_SSH="vivo-uqam-aws-demo" 
+[ -z "$CLE_SSH" ] && export CLE_SSH="vivo-uqam-cle-ssh"
 ###################################################################
 export REGION="ca-central-1"
 export ZONE="${REGION}a"

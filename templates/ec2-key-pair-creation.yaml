@@ -1,0 +1,12 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Associer les politiques au groupe vivo-grp"
+Parameters:
+  KeyPairName:
+    Description: Nom de la pair de cles
+    Type: String
+
+RResources:
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
+    Properties:
+      KeyName: !Ref KeyPairName
