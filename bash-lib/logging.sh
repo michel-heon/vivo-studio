@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/usr/bin/env bash
 
 ##
 ## Simple logging mechanism for Bash
@@ -22,12 +22,20 @@ err_lvl=2
 wrn_lvl=3
 inf_lvl=4
 dbg_lvl=5
-notify() { [[ $# -lt 2 ]]   || logwitdh=$2 ; log $silent_lvl "NOTE: $1"; } # Always prints
-critical() { [[ $# -lt 2 ]] || logwitdh=$2 ; log $crt_lvl "CRITICAL: $1"; }
+set_debug(){
+	case $- in
+		*x*) 
+			set +x
+			export DEBUG
+			;;
+	esac
+}
+notify() { set_debug && [[ $# -lt 2 ]]   || logwitdh=$2 ; log $silent_lvl "NOTE: $1"; } # Always prints
+critical() { set_debug && [[ $# -lt 2 ]] || logwitdh=$2 ; log $crt_lvl "CRITICAL: $1"; }
 error() { [[ $# -lt 2 ]]    || logwitdh=$2 ; log $err_lvl "ERROR: $1"; }
 warn() { [[ $# -lt 2 ]]     || logwitdh=$2 ; log $wrn_lvl "WARNING: $1"; }
-inf() { [[ $# -lt 2 ]]      || logwitdh=$2 ; log $inf_lvl "INFO: $1";  } # "info" is already a command
-info() { [[ $# -lt 2 ]]     || logwitdh=$2 ; log $inf_lvl "INFO: $1";  } # "info" is already a command
+inf() { set_debug && [[ $# -lt 2 ]]      || logwitdh=$2 ; log $inf_lvl "INFO: $1";  } # "info" is already a command
+info() { set_debug && [[ $# -lt 2 ]]     || logwitdh=$2 ; log $inf_lvl "INFO: $1";  } # "info" is already a command
 debug() { [[ $# -lt 2 ]]    || logwitdh=$2 ; log $dbg_lvl "DEBUG: $1"; }
 log() {
     if [ $verbosity -ge $1 ]; then
@@ -37,4 +45,5 @@ log() {
         echo -e "$datestring $2" | fold -w$logwitdh -s | sed '2~1s/^/  /' >&3
         logwitdh=$defaultlw
     fi
+    [ -z DEBUG ] && set -x
 }
